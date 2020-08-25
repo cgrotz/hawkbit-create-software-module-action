@@ -61,11 +61,16 @@ export async function createSoftwareModule(
     version
   }
   core.info(`Creating Software Module with name ${name}`)
-  const response = await Axios.post(url, [module], {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: getBasicAuthHeader()
-    }
-  })
-  return response.data
+  try {
+    const response = await Axios.post(url, [module], {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: getBasicAuthHeader()
+      }
+    })
+    return response.data
+  } catch (error) {
+    core.error(`Failed creating software module ${error}`)
+    return null
+  }
 }

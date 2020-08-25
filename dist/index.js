@@ -4279,13 +4279,19 @@ function createSoftwareModule(type, version, name, vendor, description) {
             version
         };
         core.info(`Creating Software Module with name ${name}`);
-        const response = yield axios_1.default.post(url, [module], {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: getBasicAuthHeader()
-            }
-        });
-        return response.data;
+        try {
+            const response = yield axios_1.default.post(url, [module], {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: getBasicAuthHeader()
+                }
+            });
+            return response.data;
+        }
+        catch (error) {
+            core.error(`Failed creating software module ${error}`);
+            return null;
+        }
     });
 }
 exports.createSoftwareModule = createSoftwareModule;
