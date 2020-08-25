@@ -4286,6 +4286,7 @@ function createSoftwareModule(type, version, name, vendor, description) {
                     Authorization: getBasicAuthHeader()
                 }
             });
+            core.info(`Response from Hawkbit ${response.status} ${response.statusText} ${response.data}`);
             return response.data;
         }
         catch (error) {

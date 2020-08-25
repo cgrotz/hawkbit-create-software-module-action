@@ -68,6 +68,9 @@ export async function createSoftwareModule(
         Authorization: getBasicAuthHeader()
       }
     })
+    core.info(
+      `Response from Hawkbit ${response.status} ${response.statusText} ${response.data}`
+    )
     return response.data
   } catch (error) {
     core.error(`Failed creating software module ${error}`)
