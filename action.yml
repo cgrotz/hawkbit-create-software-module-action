@@ -1,0 +1,31 @@
+name: 'Hawkbit Create Software Module Action'
+description: 'Create a Software Module in Hawkbit'
+inputs:
+  hawkbit-host-url: 
+    description: 'Base URL of the Hawkbit instance to use'
+    required: true
+    default: 'https://api.eu1.bosch-iot-rollouts.com'
+  hawkbit-tenant: 
+    description: 'Tenant of the Hawkbit Instance'
+    required: true
+  hawkbit-username: 
+    description: 'Username of the Hawkbit Instance'
+    required: true
+  hawkbit-password: 
+    description: 'Password of the Hawkbit Instance'
+    required: true
+  software-module-type:
+    description: 'If a distribution set should be created, please provide the type of the distribution set'
+    required: true
+  software-module-name:
+    description: 'If a software module should be created, please provide the name of the distribution set'
+    required: true
+  software-module-version:
+    description: 'If a software module should be created, please provide the version of the distribution set'
+    required: true
+outputs:
+  software-module-id: # id of output
+    description: 'ID of the new software module created in Hawkbit'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
