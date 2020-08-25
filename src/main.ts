@@ -16,8 +16,12 @@ async function run(): Promise<void> {
       vendor,
       description
     )
-    core.info(`Created software module ${name}:${version}`)
-    core.setOutput('software-module-id', softwareModule!.id.toString())
+    if (softwareModule == null) {
+      core.error(`Failed creating software module ${name}:${version}`)
+    } else {
+      core.info(`Created software module ${name}:${version}`)
+      core.setOutput('software-module-id', softwareModule[0].id.toString())
+    }
   } catch (error) {
     core.setFailed(error.message)
   }

@@ -48,7 +48,7 @@ export async function createSoftwareModule(
   name: string,
   vendor?: string,
   description?: string
-): Promise<SoftwareModule | null> {
+): Promise<SoftwareModule[] | null> {
   const hawkbitHostUrl = core.getInput('hawkbit-host-url')
 
   const url = `${hawkbitHostUrl}/rest/v1/softwaremodules`
@@ -69,7 +69,9 @@ export async function createSoftwareModule(
       }
     })
     core.info(
-      `Response from Hawkbit ${response.status} ${response.statusText} ${response.data}`
+      `Response from Hawkbit ${response.status} ${
+        response.statusText
+      } ${JSON.stringify(response.data)}`
     )
     return response.data
   } catch (error) {

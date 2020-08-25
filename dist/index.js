@@ -522,8 +522,13 @@ function run() {
             const vendor = core.getInput('software-module-vendor');
             const description = core.getInput('software-module-description');
             const softwareModule = yield api_1.createSoftwareModule(type, version, name, vendor, description);
-            core.info(`Created software module ${name}:${version}`);
-            core.setOutput('software-module-id', softwareModule.id.toString());
+            if (softwareModule == null) {
+                core.error(`Failed creating software module ${name}:${version}`);
+            }
+            else {
+                core.info(`Created software module ${name}:${version}`);
+                core.setOutput('software-module-id', softwareModule[0].id.toString());
+            }
         }
         catch (error) {
             core.setFailed(error.message);
@@ -4286,7 +4291,7 @@ function createSoftwareModule(type, version, name, vendor, description) {
                     Authorization: getBasicAuthHeader()
                 }
             });
-            core.info(`Response from Hawkbit ${response.status} ${response.statusText} ${response.data}`);
+            core.info(`Response from Hawkbit ${response.status} ${response.statusText} ${JSON.stringify(response.data)}`);
             return response.data;
         }
         catch (error) {
